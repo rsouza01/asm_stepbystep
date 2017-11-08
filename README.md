@@ -14,3 +14,6 @@ Small tutorial for Nasm and Linux
 
 ## [Book on Google Books](https://books.google.com.br/books?id=veMTOpapeZkC)
 
+## Resources on Operating Systems
+	http://www.jamesmolloy.co.uk/tutorial_html/index.html
+	http://www.osdever.net/bkerndev/Docs/gettingstarted.htm
