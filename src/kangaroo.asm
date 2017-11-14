@@ -10,7 +10,12 @@ _start:
 	nop
 	; Put your experiments between the two nops...
 	
-	mov ebx,[Snippet]
+	mov ebx,Snippet
+	mov eax,8
+DoMore: add byte [ebx],32
+	inc ebx
+	dec eax
+	jnz DoMore
 
 
 
