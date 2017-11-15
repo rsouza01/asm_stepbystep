@@ -10,11 +10,8 @@ _start:
 	nop
 	; Put your experiments between the two nops...
 	
-	mov ebx,[Snippet]
-
-
-
-
+	mov ax,-42
+	movsx ebx,ax
 
 	
 	; Put your experiments between the two nops...

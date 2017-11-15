@@ -1,0 +1,16 @@
+*.bin
+*.dbg
+*.exe
+*.lst
+*.o
+*.o64
+*.obj
+*.obj64
+*.orig
+*.out
+*.rej
+*.swp
+.*swo
+*~
+*.bak
+*.tmp
