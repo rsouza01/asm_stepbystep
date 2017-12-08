@@ -19,8 +19,8 @@ endif
 
 # Set flags
 ASFLAGS= -f elf -g -F stabs
-LD=ld
-LDFLAGS=ld
+#LD=ld
+#LDFLAGS=ld
 
 
 objects = sandbox eatsyscall
