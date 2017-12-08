@@ -12,25 +12,27 @@
 
 
 ;
-SECTION .bss ; Section containing uninitialized data
+; Section containing uninitialized data
+SECTION .bss ;
     BUFFLEN EQU 10
-    Buff resb BUFFLEN
+    Buff resb BUFFLEN ; resb = "reserve a buffer size BUFFLEN to Buff, please"
 
 
-SECTION .data ; Section containing initialized data
-; Here we have two parts of a single useful data structure, implementing
-; the text line of a hex dump utility. The first part displays 16 bytes in
-; hex separated by spaces. Immediately following is a 16-character line
-; delimited by vertical bar characters. Because they are adjacent, the two
-; parts can be referenced separately or as a single contiguous unit.
-; Remember that if DumpLin is to be used separately, you must append an
-; EOL before sending it to the Linux console.
+; Section containing initialized data
+;  Here we have two parts of a single useful data structure, implementing
+;  the text line of a hex dump utility. The first part displays 16 bytes in
+;  hex separated by spaces. Immediately following is a 16-character line
+;  delimited by vertical bar characters. Because they are adjacent, the two
+;  parts can be referenced separately or as a single contiguous unit.
+;  Remember that if DumpLin is to be used separately, you must append an
+;  EOL before sending it to the Linux console.
+SECTION .data 
 
-DumpLin: db " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 "
-DUMPLEN EQU $-DumpLin
-ASCLin: db "|................|",10
-ASCLEN EQU $-ASCLin
-FULLLEN EQU $-DumpLin
+DumpLin  : db " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 "
+DUMPLEN    EQU $-DumpLin
+ASCLin   : db "|................|", 10
+ASCLEN     EQU $-ASCLin
+FULLLEN    EQU $-DumpLin
 
 ; The HexDigits table is used to convert numeric values to their hex
 ; equivalents. Index by nybble without a scale: [HexDigits+eax]
@@ -61,23 +63,23 @@ DotXlat:
     db 2Eh,2Eh,2Eh,2Eh,2Eh,2Eh,2Eh,2Eh,2Eh,2Eh,2Eh,2Eh,2Eh,2Eh,2Eh,2Eh
 
 
-SECTION .text ; Section containing code
-
+; Section containing code
+SECTION .text 
 
 ;-------------------------------------------------------------------------
 ; ClearLine: Clear a hex dump line string to 16 0 values
-; UPDATED: 4/15/2009
 ; IN: Nothing
 ; RETURNS: Nothing
 ; MODIFIES: Nothing
 ; CALLS: DumpChar
 ; DESCRIPTION: The hex dump line string is cleared to binary 0 by
-; calling DumpChar 16 times, passing it 0 each time.
+;   calling DumpChar 16 times, passing it 0 each time.
 ClearLine:
 
     Pushad ; Save all caller’s GP registers
     mov edx,15 ; We’re going to go 16 pokes, counting from 0
-.poke: mov eax,0 ; Tell DumpChar to poke a '0’
+.poke: 
+    mov eax,0 ; Tell DumpChar to poke a '0’
     call DumpChar ; Insert the '0' into the hex dump string
     sub edx,1 ; DEC doesn’t affect CF!
     jae .poke ; Loop back if EDX >= 0
