@@ -19,20 +19,21 @@ endif
 
 # Set flags
 ASFLAGS= -f elf -g -F stabs
-#LD=ld
-#LDFLAGS=ld
+LD=ld
+LDFLAGS= -m elf_i386
 
 
-objects = sandbox eatsyscall
+objects = hexdump2.o
 
-all: $(objects)
+hexdump2: $(objects)
+	$(LD) $(LDFLAGS) -o $@ $<
 
 
 %.o: %.asm
 	$(AS) $(ASFLAGS) $^ -l $*.lst
 
 clean:
-	rm -f *.o *.lst
+	rm -f *.o *.lst hexdump2
 
 help:
 	@echo 'This is help'
