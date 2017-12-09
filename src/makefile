@@ -18,22 +18,25 @@ else
 endif
 
 # Set flags
-ASFLAGS= -f elf -g -F stabs
+#ASFLAGS= -f elf -g -F stabs
+ASFLAGS= -f elf
 LD=ld
 LDFLAGS= -m elf_i386
 
 
-objects = hexdump2.o
+#objects = hexdump2 eatsyscall skeleton
+objects = skeleton
 
-hexdump2: $(objects)
+all: $(objects)
+
+$(objects): %: %.o
 	$(LD) $(LDFLAGS) -o $@ $<
-
 
 %.o: %.asm
 	$(AS) $(ASFLAGS) $^ -l $*.lst
 
 clean:
-	rm -f *.o *.lst hexdump2
+	rm -f *.o *.lst $(objects)
 
 help:
 	@echo 'This is help'
