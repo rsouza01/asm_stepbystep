@@ -24,8 +24,8 @@ LD=ld
 LDFLAGS= -m elf_i386
 
 
-#objects = hexdump2 eatsyscall skeleton
-objects = skeleton
+objects = hexdump2 eatsyscall skeleton
+#objects = skeleton
 
 all: $(objects)
 
