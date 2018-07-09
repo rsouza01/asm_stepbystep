@@ -29,8 +29,8 @@ OBJDIR   = ./obj
 BINDIR   = ./bin
 SRCDIR   = ./src
 
-#objects = hexdump2 eatsyscall skeleton kangaroo newsandbox uppercaser
-objects = skeleton
+objects = hexdump2 eatsyscall skeleton
+#objects = skeleton
 
 all: $(objects)
 

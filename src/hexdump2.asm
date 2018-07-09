@@ -1,8 +1,6 @@
 ; Executable name : hexdump2
 ; Version : 1.0
-; Created date : 4/15/2009
-; Last update : 4/20/2009
-; Author : Jeff Duntemann
+
 ; Description : A simple hex dump utility demonstrating the use of
 ; assembly language procedures
 ;
@@ -89,9 +87,8 @@ ClearLine:
 
 ;-------------------------------------------------------------------------
 ; DumpChar: “Poke“ a value into the hex dump line string.
-; UPDATED: 4/15/2009
 ; IN: Pass the 8-bit value to be poked in EAX.
-; Pass the value’s position in the line (0-15) in EDX
+;     Pass the value’s position in the line (0-15) in EDX
 ; RETURNS: Nothing
 ; MODIFIES: EAX, ASCLin, DumpLin
 ; CALLS: Nothing
@@ -125,7 +122,6 @@ DumpChar:
 
 ;-------------------------------------------------------------------------
 ; PrintLine: Displays DumpLin to stdout
-; UPDATED: 4/15/2009
 ; IN: Nothing
 ; RETURNS: Nothing
 ; MODIFIES: Nothing
@@ -160,16 +156,21 @@ LoadBuff:
     push eax ; Save caller’s EAX
     push ebx ; Save caller’s EBX
     push edx ; Save caller’s EDX
+    
     mov eax,3 ; Specify sys_read call
     mov ebx,0 ; Specify File Descriptor 0: Standard Input
     mov ecx,Buff ; Pass offset of the buffer to read to
     mov edx,BUFFLEN ; Pass number of bytes to read at one pass
     int 80h ; Call sys_read to fill the buffer
+    
     mov ebp,eax ; Save # of bytes read from file for later
+    
     xor ecx,ecx ; Clear buffer pointer ECX to 0
+    
     pop edx ; Restore caller’s EDX
     pop ebx ; Restore caller’s EBX
     pop eax ; Restore caller’s EAX
+    
     ret ; And return to caller
 
 GLOBAL _start
