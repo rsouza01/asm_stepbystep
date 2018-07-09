@@ -1,0 +1,48 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+#
+#
+# Vagrantfile for nasm.
+#
+#
+# Author: 	Rodrigo Alvares de Souza
+# 			rsouza01@gmail.com
+#
+#
+# History:
+# Version 0.1: 2017/12/17 (rsouza) - First version.
+#
+#
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+	config.vm.box = "rsouza01/ubuntu_vagrant_box_16.04_LTS"
+
+	config.vm.define :dev do |dev_config|
+		dev_config.vm.provision "fix-no-tty", type: "shell" do |s|
+			s.privileged = true
+			s.inline = "sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n \\|\\| true/' /root/.profile"
+		end	
+		
+		dev_config.vm.provision "disable-apt-periodic-updates", type: "shell" do |s|
+			s.privileged = true
+			s.inline = "echo 'APT::Periodic::Enable \"0\";' > /etc/apt/apt.conf.d/02periodic"
+		end
+
+		
+		dev_config.vm.hostname = "dev"
+		dev_config.vm.network :private_network, :ip => "192.168.33.10"
+
+		dev_config.vm.provision :"puppet" do |puppet|
+			
+			puppet.manifests_path = "./manifests"
+			puppet.manifest_file = "dev.pp"
+		end
+
+	end
+
+
+end
+

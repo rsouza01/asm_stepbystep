@@ -1,3 +1,5 @@
+# -*- MakeFile -*- 
+
 # MAKEFILE RULES
 
 # <target> : <prerequisites>
@@ -23,17 +25,22 @@ ASFLAGS= -f elf
 LD=ld
 LDFLAGS= -m elf_i386
 
+OBJDIR   = ./obj
+BINDIR   = ./bin
+SRCDIR   = ./src
 
-#objects = hexdump2 eatsyscall skeleton
+#objects = hexdump2 eatsyscall skeleton kangaroo newsandbox uppercaser
 objects = skeleton
 
 all: $(objects)
 
 $(objects): %: %.o
 	$(LD) $(LDFLAGS) -o $@ $<
+	@echo "Linked "$<" successfully!"
 
 %.o: %.asm
 	$(AS) $(ASFLAGS) $^ -l $*.lst
+	@echo "Compiled "$<" successfully!"
 
 clean:
 	rm -f *.o *.lst $(objects)
