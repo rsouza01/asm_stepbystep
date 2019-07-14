@@ -21,7 +21,7 @@ endif
 
 # Set flags
 #ASFLAGS= -f elf -g -F stabs
-ASFLAGS= -f elf
+ASFLAGS= -f elf -g -F stabs
 LD=ld
 LDFLAGS= -m elf_i386
 
@@ -29,8 +29,9 @@ OBJDIR   = ./obj
 BINDIR   = ./bin
 SRCDIR   = ./src
 
-objects = hexdump2 eatsyscall skeleton
+#objects = hexdump2 eatsyscall skeleton kangaroo
 #objects = skeleton
+objects = kangaroo
 
 all: $(objects)
 

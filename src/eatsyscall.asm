@@ -15,6 +15,8 @@
 SECTION .data      ; Section containing initialised data
  
 EatMsg: db "Eat at Joe's!",10
+
+; Symbol ';' => "here" - It calculates the size oc the string in assembly time.
 EatLen: equ $-EatMsg
     
 SECTION .bss       ; Section containing uninitialised data
