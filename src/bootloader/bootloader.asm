@@ -23,6 +23,9 @@ call MovCursor
 mov al, 0x23  ; character (#)
 call PutChar
 
+mov al, welcome_msg
+mov ah, welcome_msg_len
+call Print
 
 
 hlt ; halt the system

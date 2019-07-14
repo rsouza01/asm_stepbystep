@@ -47,3 +47,5 @@ PutChar:
 ;Parameters:
 ;ds:si = Zero terminated string
 ;Return: None
+Print:
+    ret
