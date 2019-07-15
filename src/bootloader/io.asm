@@ -48,4 +48,10 @@ PutChar:
 ;ds:si = Zero terminated string
 ;Return: None
 Print:
+    ; set pointer to beginning of the string
+    ; while end not reached
+    ;   print char pointed
+    ;   incread address
+    
+
     ret
