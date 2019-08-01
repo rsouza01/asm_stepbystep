@@ -15,14 +15,16 @@ boot:
 cli ; no interrupts
 cld ; all that we need to init
 
-;mov eax, 0x1010  ; EAH = Row, EAL = Column (10, 0)
-mov ah, 0x10  ; EAH = Row, EAL = Column (10, 0)
-mov al, 0x10  ; EAH = Row, EAL = Column (10, 0)
-call MovCursor
+;mov ah, 0x10  ; BH = Row
+;mov al, 0x30  ; BL = Column
+;call MovCursor
 
-mov al, 0x23  ; character (#)
-call PutChar
+;mov al, 'M'
+;call PutChar
 
+
+mov bh, 0x10  ; BH = Row
+mov bl, 0x10  ; BL = Column
 mov al, welcome_msg
 mov ah, welcome_msg_len
 call Print

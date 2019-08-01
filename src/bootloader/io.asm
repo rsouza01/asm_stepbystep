@@ -7,16 +7,19 @@
 ;MovCursor
 ;Purpose: Move a cursor to a specific location on screen and remember this location
 ;Parameters:
-;dh = Y coordinate
-;dl = X coordinate.
+;ah = Y coordinate
+;al = X coordinate.
 ;Return: None
 MovCursor:
     push edx ; Save edx
+    push eax ; Save eax
 
     mov edx, eax ; position, DH = Row, DL = Column, restore position from eax
+    
     mov eax, 0x0200
     int 10h
 
+    pop eax  ; Restore eax
     pop edx  ; Restore edx
     ret
 
@@ -25,18 +28,16 @@ MovCursor:
 ;Purpose: Print a character on screen, at the cursor position previously set by MovCursor .
 ;Parameters:
 ;al = Character to print
-;bl = text color
-;cx = number of times the character is repeated
 ;Return: None
-
-;AL = Character, BH = Page Number, CX = Number of times to print character	
 PutChar:
     push ecx ; Save ecx
+    push eax ; Save eax
 
     mov ah, 0x0A ; eah = 0x0A, eal = char
     mov ecx, 0x1 ; print the character 1 time only
     int 10h
 
+    pop eax  ; Restore eax
     pop ecx  ; Restore ecx
     ret
 
@@ -46,12 +47,50 @@ PutChar:
 ;Purpose: Print a string.
 ;Parameters:
 ;ds:si = Zero terminated string
+;BH: Row
+;BL: Column
+;AL: Msg
+;AH: Msg len
 ;Return: None
 Print:
+
+    push eax ; Save eax
+    push ecx ; Save ecx
+
     ; set pointer to beginning of the string
-    ; while end not reached
+    mov ch, ah
+    mov cl, 0
+
+    PrintCharInPosition:
+        add bl, cl
+        mov ah, bh  ; BH = Row
+        mov al, bl  ; BL = Column
+        call MovCursor
+
+        mov al, 'M'
+        call PutChar
+        
+        dec ch
+        inc cl
+        cmp ch, 0
+
+        jmp PrintCharInPosition
+
+    ; set counter to size of string
+    ; while size > 0
     ;   print char pointed
-    ;   incread address
-    
+    ;   increase address
+    ;   increase cursor X position
+    ;   decrease count
+    ; exit
+
+    pop ecx ; Restore ecx
+    pop eax ; Restore eax
 
     ret
+
+
+;mov bh, 0x10  ; BH = Row
+;mov bl, 0x10  ; BL = Column
+;mov al, welcome_msg
+;mov ah, welcome_msg_len
