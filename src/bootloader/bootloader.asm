@@ -12,25 +12,26 @@ welcome_msg_len: equ $-welcome_msg
 SECTION .text      ; Section containig code
 
 boot:
-cli ; no interrupts
-cld ; all that we need to init
-
-;mov ah, 0x10  ; BH = Row
-;mov al, 0x30  ; BL = Column
-;call MovCursor
-
-;mov al, 'M'
-;call PutChar
+  cli ; no interrupts
+  cld ; all that we need to init
 
 
-mov bh, 0x10  ; BH = Row
-mov bl, 0x10  ; BL = Column
-mov al, welcome_msg
-mov ah, welcome_msg_len
-call Print
+  mov ah, 0xA  ; BH = Row
+  mov al, 0xA  ; BL = Column
+  mov ecx, welcome_msg
+  mov dh, welcome_msg_len
+  call Print
 
 
-hlt ; halt the system
+  ;mov ah, 0x15  ; BH = Row
+  ;mov al, 0  ; BL = Column
+  call MovCursor
 
-times 510 - ($-$$) db 0
-dw 0xAA55 ; Boot Signiture
+  mov al, 'G'
+  call PutChar
+
+
+  hlt ; halt the system
+
+  times 510 - ($-$$) db 0
+  dw 0xAA55 ; Boot Signiture

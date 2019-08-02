@@ -46,48 +46,41 @@ PutChar:
 ;Print
 ;Purpose: Print a string.
 ;Parameters:
-;ds:si = Zero terminated string
-;BH: Row
-;BL: Column
-;AL: Msg
-;AH: Msg len
-;Return: None
+;ah = Y coordinate
+;al = X coordinate.
+;ecx = buffer
+;dh = buffer_len
 Print:
 
-    push eax ; Save eax
-    push ecx ; Save ecx
+        push eax ; Save eax
+        push ebx ; Save ebx
+        push ecx ; Save ecx
+        push edx ; Save edx
 
-    ; set pointer to beginning of the string
-    mov ch, ah
-    mov cl, 0
+        xor ebx, ebx    ; ebx <= # of chars processed (0)
+    
+        ;jmp Done
 
     PrintCharInPosition:
-        add bl, cl
-        mov ah, bh  ; BH = Row
-        mov al, bl  ; BL = Column
+
+        add al, bh
         call MovCursor
 
         mov al, 'M'
         call PutChar
         
-        dec ch
-        inc cl
-        cmp ch, 0
+        inc bh
+        cmp dh, ch
+        jle PrintCharInPosition
 
-        jmp PrintCharInPosition
+    Done:
 
-    ; set counter to size of string
-    ; while size > 0
-    ;   print char pointed
-    ;   increase address
-    ;   increase cursor X position
-    ;   decrease count
-    ; exit
+        pop edx ; Restore edx
+        pop ecx ; Restore ecx
+        pop ebx ; Restore ebx
+        pop eax ; Restore eax
 
-    pop ecx ; Restore ecx
-    pop eax ; Restore eax
-
-    ret
+        ret
 
 
 ;mov bh, 0x10  ; BH = Row
