@@ -16,10 +16,10 @@ boot:
   cld ; all that we need to init
 
 
-  mov ah, 0xA  ; BH = Row
-  mov al, 0x0  ; BL = Column
+  mov ah, 0x12  ; BH = Row
+  mov al, 0x12  ; BL = Column
   mov ecx, welcome_msg
-  mov  dh, welcome_msg_len
+  mov edx, welcome_msg_len
   call Print
 
 
@@ -27,8 +27,8 @@ boot:
   ;mov al, 0  ; BL = Column
   ;call MovCursor
 
-  mov al, 'G'
-  call PutChar
+  ;mov al, 'G'
+  ;call PutChar
 
 
   hlt ; halt the system
