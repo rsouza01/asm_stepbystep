@@ -17,15 +17,15 @@ boot:
 
 
   mov ah, 0xA  ; BH = Row
-  mov al, 0xA  ; BL = Column
+  mov al, 0x0  ; BL = Column
   mov ecx, welcome_msg
-  mov dh, welcome_msg_len
+  mov  dh, welcome_msg_len
   call Print
 
 
   ;mov ah, 0x15  ; BH = Row
   ;mov al, 0  ; BL = Column
-  call MovCursor
+  ;call MovCursor
 
   mov al, 'G'
   call PutChar

@@ -46,10 +46,8 @@ PutChar:
 ;Print
 ;Purpose: Print a string.
 ;Parameters:
-;ah = Y coordinate
-;al = X coordinate.
-;ecx = buffer
-;dh = buffer_len
+;ah = Y coordinate, al = X coordinate.
+;ecl = buffer, dh = buffer_len
 Print:
 
         push eax ; Save eax
@@ -58,19 +56,22 @@ Print:
         push edx ; Save edx
 
         xor ebx, ebx    ; ebx <= # of chars processed (0)
-    
-        ;jmp Done
+
+        mov bh, al ;save initial position
 
     PrintCharInPosition:
 
-        add al, bh
-        call MovCursor
+        mov al, bh
+        add al, bl
+        call MovCursor ;ah = Y coordinate, al = X coordinate.
 
-        mov al, 'M'
+        ; LET OP: BL CANT BE USED AS INDEXING, ONLY EBX
+
+        mov al, byte [ecx + bl]
         call PutChar
         
-        inc bh
-        cmp dh, ch
+        inc bl
+        cmp bl, dh
         jle PrintCharInPosition
 
     Done:
