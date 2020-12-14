@@ -10,6 +10,8 @@ apt-get install -y \
   git \
   gnupg2 \
   jq \
+  man \
+  binutils \
   sudo \
   zsh \
   ca-certificates \
