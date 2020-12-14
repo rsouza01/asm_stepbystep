@@ -12,6 +12,7 @@ apt-get install -y \
   jq \
   man \
   binutils \
+  gdb \
   sudo \
   zsh \
   ca-certificates \
