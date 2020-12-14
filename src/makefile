@@ -1,4 +1,4 @@
-# -*- MakeFile -*- 
+# -*- MakeFile -*-
 
 # MAKEFILE RULES
 
@@ -29,9 +29,10 @@ OBJDIR   = ./obj
 BINDIR   = ./bin
 SRCDIR   = ./src
 
-#objects = hexdump2 eatsyscall skeleton kangaroo
+objects = eatsyscall
+# objects = hexdump2 eatsyscall skeleton kangaroo
 #objects = skeleton
-objects = kangaroo
+# objects = kangaroo
 
 all: $(objects)
 
@@ -48,5 +49,5 @@ clean:
 
 help:
 	@echo 'This is help'
-	
+
 .PHONY: clean

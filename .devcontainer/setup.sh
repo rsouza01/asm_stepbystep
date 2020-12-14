@@ -18,6 +18,7 @@ apt-get install -y \
   ca-certificates \
   groff \
   less \
+  make \
 	nasm
 
 echo "Installing oh-my-zsh"
