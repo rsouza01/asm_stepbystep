@@ -11,4 +11,8 @@ gdb <exename>
 - step <n> (step into)
 - next <n> (step)
 - display <expression> (keeps the variable in a list)
-- print <expression> 
+- print <expression>
+
+
+# Registers
+
